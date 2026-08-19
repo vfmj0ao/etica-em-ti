@@ -16,8 +16,8 @@ function StatusPill({
 }
 
 function SigiloVisual({ optionId }: { optionId: string | null }) {
-  const exposed = optionId === "send";
-  const partial = optionId === "mask" || optionId === "whatsapp";
+  const merged = optionId === "approve" || optionId === "internal";
+  const marketing = optionId === "marketing";
   const blocked = optionId === "refuse";
 
   return (
@@ -25,77 +25,76 @@ function SigiloVisual({ optionId }: { optionId: string | null }) {
       <div className="fake-mail">
         <div className="fake-mail-row">
           <span>De</span>
-          <strong>lucas.mendes@nexus.local</strong>
+          <strong>diretoria@saude.local</strong>
         </div>
         <div className="fake-mail-row">
           <span>Para</span>
-          <strong>
-            {optionId === "whatsapp"
-              ? "WhatsApp • Lucas"
-              : optionId === "refuse"
-                ? "ti-suporte@nexus.local"
-                : "lucas.mendes@gmail.com"}
-          </strong>
+          <strong>dados@saude.local</strong>
         </div>
         <p>
           {optionId === "refuse"
-            ? "Sistema instável. Preciso de acesso temporário no ambiente corporativo, sem extrair a base."
-            : "O CRM caiu. Manda a planilha no meu pessoal? É só hoje, eu apago à noite."}
+            ? "Cruzamento suspenso até avaliação de reidentificação e consentimento."
+            : "Juntem a base anonimizada com o cadastro do programa social. Marketing também precisa."}
         </p>
       </div>
-
       <div className={`fake-sheet ${blocked ? "blocked" : ""}`}>
         <div className="fake-sheet-head">
-          <span>clientes_ativo.xlsx</span>
+          <span>
+            {merged || marketing
+              ? "consulta ⋈ cadastro_social"
+              : "consultas_anon.csv"}
+          </span>
           <StatusPill
-            tone={blocked ? "ok" : exposed ? "bad" : partial ? "warn" : "idle"}
+            tone={
+              blocked
+                ? "ok"
+                : optionId === "approve"
+                  ? "bad"
+                  : optionId
+                    ? "warn"
+                    : "idle"
+            }
           >
             {blocked
-              ? "acesso interno"
-              : exposed
-                ? "arquivo enviado"
-                : partial
-                  ? "cópia parcial"
-                  : "dados em risco"}
+              ? "fusão recusada"
+              : optionId === "approve"
+                ? "reidentificação provável"
+                : optionId
+                  ? "quase-identificadores"
+                  : "anonimato aparente"}
           </StatusPill>
         </div>
         <table>
           <thead>
             <tr>
-              <th>Nome</th>
-              <th>CPF</th>
-              <th>Telefone</th>
-              <th>Cartão</th>
+              <th>CEP</th>
+              <th>Nasc.</th>
+              <th>Consulta</th>
+              <th>{merged || marketing ? "Nome" : "ID"}</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Ana Souza</td>
-              <td>{exposed ? "452.118.903-22" : "•••.•••.•••-••"}</td>
-              <td>
-                {exposed || optionId === "mask"
-                  ? "(11) 98821-4409"
-                  : "(11) 9••••-••••"}
-              </td>
-              <td>{exposed ? "5162 88•• 4412" : "•••• ••••"}</td>
+              <td>69020-110</td>
+              <td>14/03/1988</td>
+              <td>02/04</td>
+              <td>{merged || marketing ? "R. Nascimento" : "A-441"}</td>
             </tr>
             <tr>
-              <td>Igor Lima</td>
-              <td>{exposed ? "307.664.128-90" : "•••.•••.•••-••"}</td>
-              <td>
-                {exposed || optionId === "mask"
-                  ? "(21) 99704-1183"
-                  : "(21) 9••••-••••"}
-              </td>
-              <td>{exposed ? "4111 12•• 9031" : "•••• ••••"}</td>
+              <td>76801-058</td>
+              <td>09/11/1975</td>
+              <td>02/04</td>
+              <td>{merged || marketing ? "L. Pereira" : "A-902"}</td>
             </tr>
           </tbody>
         </table>
         {blocked && (
-          <div className="scene-overlay ok">Envio externo bloqueado</div>
+          <div className="scene-overlay ok">SBC 1.6 — propósito e mínimo</div>
         )}
-        {optionId === "whatsapp" && (
-          <div className="scene-overlay warn">Print pode ser encaminhado</div>
+        {marketing && (
+          <div className="scene-overlay warn">
+            Uso secundário sem consentimento
+          </div>
         )}
       </div>
     </div>
@@ -107,70 +106,65 @@ function AssedioVisual({ optionId }: { optionId: string | null }) {
     <div className="scene-stack">
       <div className="fake-meet">
         <div className="fake-meet-bar">
-          <span>daily • squad vendas</span>
+          <span>triagem • modelo v3</span>
           <StatusPill
             tone={
-              optionId === "report"
+              optionId === "document"
                 ? "ok"
-                : optionId === "ignore"
+                : optionId === "silence"
                   ? "bad"
                   : optionId
                     ? "warn"
                     : "idle"
             }
           >
-            {optionId === "report"
-              ? "canal acionado"
-              : optionId === "ignore"
-                ? "abuso normalizado"
-                : optionId === "joke"
-                  ? "humor no lugar da correção"
-                  : optionId === "private"
-                    ? "omissão na hora"
-                    : "reunião ao vivo"}
+            {optionId === "document"
+              ? "uso decisório suspenso"
+              : optionId === "silence"
+                ? "viés em produção"
+                : optionId === "threshold"
+                  ? "ajuste opaco"
+                  : "disparidade detectada"}
           </StatusPill>
         </div>
         <div className="meet-grid">
-          <div className="meet-tile lead">RL</div>
-          <div className={`meet-tile ${optionId === "ignore" ? "muted" : ""}`}>
-            VC
-          </div>
-          <div className="meet-tile">JO</div>
+          <div className="meet-tile lead">PM</div>
+          <div className="meet-tile">VC</div>
+          <div className="meet-tile">RH</div>
           <div
-            className={`meet-tile victim ${optionId === "ignore" ? "isolated" : ""}`}
+            className={`meet-tile victim ${optionId === "silence" ? "isolated" : ""}`}
           >
-            MA
+            AN
           </div>
         </div>
         <div className="meet-chat">
           <p>
-            <strong>Renata L.</strong> Marina, deixa quieto. Esse perfil não
-            combina com cliente grande.
+            <strong>Modelo</strong> Norte/Nordeste −18 pts • mulheres −11 pts
           </p>
-          {optionId === "ignore" && (
+          {optionId === "silence" && (
             <p className="bad-line">
-              <strong>Você</strong> 😂
+              <strong>Você</strong> Arquivado até a captação.
             </p>
           )}
-          {optionId === "joke" && (
+          {optionId === "threshold" && (
             <p className="warn-line">
-              <strong>Você</strong> Relaxa, Renata tá só “brincando”...
+              <strong>Você</strong> Sobe o corte em 4 pontos e segue.
             </p>
           )}
-          {optionId === "private" && (
+          {optionId === "victim" && (
             <p className="warn-line">
-              <strong>Você</strong> <em>permanece em silêncio</em>
+              <strong>Você</strong> Ana, se quiser denunciar, o material é seu.
             </p>
           )}
-          {optionId === "report" && (
+          {optionId === "document" && (
             <p className="ok-line">
-              <strong>Você</strong> Vamos interromper aqui. Isso não é
-              aceitável. Registro o ocorrido no canal.
+              <strong>Você</strong> Congelo a triagem automática e registro o
+              episódio no canal formal.
             </p>
           )}
           {!optionId && (
             <p>
-              <strong>Marina A.</strong> <em>câmera ligada, microfone mudo</em>
+              <strong>Líder</strong> Esse sotaque não fecha com investidor.
             </p>
           )}
         </div>
@@ -180,43 +174,48 @@ function AssedioVisual({ optionId }: { optionId: string | null }) {
 }
 
 function FraudeVisual({ optionId }: { optionId: string | null }) {
-  const bWins = optionId === "accept";
-  const conflict = optionId === "accept" || optionId === "delay";
+  const inflated = optionId === "lie" || optionId === "verbal" || !optionId;
 
   return (
     <div className="scene-stack">
       <div className="bid-grid">
-        <article className={!bWins && optionId === "disclose" ? "winner" : ""}>
-          <span>Proposta A</span>
-          <strong>R$ 142.900</strong>
-          <small>nota técnica 9,1</small>
+        <article className={optionId === "disclose" ? "winner" : ""}>
+          <span>teste interno</span>
+          <strong>71%</strong>
+          <small>falsos positivos em bairros pobres</small>
         </article>
-        <article className={bWins ? "winner dirty" : ""}>
-          <span>Proposta B</span>
-          <strong>R$ 181.400</strong>
-          <small>nota técnica 7,4</small>
+        <article
+          className={inflated && optionId !== "disclose" ? "winner dirty" : ""}
+        >
+          <span>slide da demo</span>
+          <strong>{optionId === "disclose" ? "71%" : "98%"}</strong>
+          <small>
+            {optionId === "disclose"
+              ? "métrica corrigida"
+              : "afirmação ao secretário"}
+          </small>
         </article>
       </div>
-      <div className={`gift-box ${conflict ? "open" : ""}`}>
+      <div className="gift-box">
         <div>
-          <strong>Notebook “cortesia”</strong>
+          <strong>ingressos do congresso</strong>
           <p>
             {optionId === "disclose"
-              ? "Devolvido e registrado em compliance."
-              : optionId === "lunch"
-                ? "Bem recusado. Almoço de R$ 420 aceito."
-                : optionId === "delay"
-                  ? "Na gaveta. Decisão pendente."
-                  : optionId === "accept"
-                    ? "Aceito em silêncio. B sobe no ranking."
-                    : "O vendedor diz que não precisa declarar."}
+              ? "Benefício recusado e conflito registrado."
+              : optionId === "delayGift"
+                ? "Aceitos depois da assinatura."
+                : optionId === "lie"
+                  ? "Aceitos em silêncio."
+                  : optionId === "verbal"
+                    ? "Oferta em aberto. Slide inflado permanece."
+                    : "“Se o contrato sair, os convites saem.”"}
           </p>
         </div>
         <StatusPill
           tone={
             optionId === "disclose"
               ? "ok"
-              : optionId === "accept"
+              : optionId === "lie"
                 ? "bad"
                 : optionId
                   ? "warn"
@@ -224,10 +223,10 @@ function FraudeVisual({ optionId }: { optionId: string | null }) {
           }
         >
           {optionId === "disclose"
-            ? "conflito declarado"
-            : optionId === "accept"
-              ? "vantagem oculta"
-              : "influência possível"}
+            ? "SBC 1.3"
+            : optionId === "lie"
+              ? "declaração falsa"
+              : "conflito possível"}
         </StatusPill>
       </div>
     </div>
@@ -239,51 +238,57 @@ function RecursosVisual({ optionId }: { optionId: string | null }) {
     <div className="scene-stack">
       <div className="fake-desktop">
         <div className="desktop-bar">
-          <span>PC-FINANCEIRO-04</span>
+          <span>modulo_compressao</span>
           <StatusPill
             tone={
-              optionId === "ticket"
+              optionId === "rewrite"
                 ? "ok"
-                : optionId === "disable" || optionId === "crack"
+                : optionId === "copy" || optionId === "crack"
                   ? "bad"
-                  : optionId === "personal"
+                  : optionId
                     ? "warn"
                     : "idle"
             }
           >
-            {optionId === "disable"
-              ? "proteção desligada"
-              : optionId === "crack"
-                ? "software ilegal"
-                : optionId === "ticket"
-                  ? "chamado 8841"
-                  : "política de software"}
+            {optionId === "rewrite"
+              ? "licença limpa"
+              : optionId === "copy"
+                ? "GPL violada"
+                : optionId === "crack"
+                  ? "software ilegal"
+                  : "origem duvidosa"}
           </StatusPill>
         </div>
         <div className="installer">
-          <p>DesignSuite_Pro_Crack.exe</p>
+          <p>
+            {optionId === "crack"
+              ? "CompressPro_Crack.exe"
+              : optionId === "rewrite"
+                ? "lib_compress @ MIT"
+                : "codec.c — cabeçalho removido"}
+          </p>
           <small>
-            {optionId === "personal"
-              ? "origem: notebook pessoal"
-              : optionId === "ticket"
-                ? "bloqueado pela TI"
-                : "origem desconhecida • 48 MB"}
+            {optionId === "rewrite"
+              ? "biblioteca licenciada • autoria preservada"
+              : optionId === "comment"
+                ? "TODO: crédito no comentário, licença ignorada"
+                : "repositório vazado do concorrente • GPL"}
           </small>
           <div className="installer-actions">
-            <span className={optionId === "ticket" ? "ghost" : "danger"}>
-              {optionId === "disable" ? "Executar mesmo assim" : "Instalar"}
+            <span className={optionId === "rewrite" ? "ghost" : "danger"}>
+              {optionId === "crack" ? "Instalar crack" : "Mesclar no produto"}
             </span>
-            <span className={optionId === "ticket" ? "ok" : "ghost"}>
-              Solicitar licença
+            <span className={optionId === "rewrite" ? "ok" : "ghost"}>
+              Reescrever
             </span>
           </div>
         </div>
         <div className="av-line">
-          {optionId === "disable"
-            ? "Antivírus: desativado pelo usuário"
-            : optionId === "crack"
-              ? "Ameaça potencial ignorada"
-              : "Antivírus: ativo • instalador bloqueável"}
+          {optionId === "copy"
+            ? "Trabalho alheio enviado como próprio"
+            : optionId === "comment"
+              ? "Crédito informal não cumpre a licença"
+              : "SBC 1.5 — creditar e respeitar licenças"}
         </div>
       </div>
     </div>
@@ -291,51 +296,49 @@ function RecursosVisual({ optionId }: { optionId: string | null }) {
 }
 
 function SegurancaVisual({ optionId }: { optionId: string | null }) {
-  const spreading = optionId === "reboot" || optionId === "hide";
+  const hidden = optionId === "erase";
 
   return (
     <div className="scene-stack">
       <div className="fake-files">
-        {[
-          "folha_pagamento.xlsx",
-          "contratos_2026.pdf",
-          "backup_clientes.zip",
-        ].map((name) => (
-          <div key={name} className={spreading ? "locked" : ""}>
-            <i />
-            <span>{spreading ? `${name}.locked` : name}</span>
-          </div>
-        ))}
+        {["backups_saude/", "access_11h.log", "pacientes.parquet"].map(
+          (name) => (
+            <div key={name} className={hidden ? "locked" : ""}>
+              <i />
+              <span>{hidden ? `${name} [apagado]` : name}</span>
+            </div>
+          ),
+        )}
       </div>
       <div className="soc-card">
-        <span>resposta a incidente</span>
+        <span>violação de dados</span>
         <strong>
-          {optionId === "isolate"
-            ? "Host isolado • ticket SOC-019"
-            : optionId === "unofficial"
-              ? "Conversa privada com a TI"
-              : optionId === "reboot"
-                ? "Evidências apagadas"
-                : optionId === "hide"
-                  ? "Pagamento iniciado"
-                  : "Atividade anômala detectável"}
+          {optionId === "notify"
+            ? "Incidente aberto • titulares notificados"
+            : optionId === "wait"
+              ? "Janela de 30 dias sem aviso"
+              : optionId === "slack"
+                ? "Aviso só no Slack interno"
+                : optionId === "erase"
+                  ? "Logs destruídos"
+                  : "Bucket público por 11 horas"}
         </strong>
         <StatusPill
           tone={
-            optionId === "isolate"
+            optionId === "notify"
               ? "ok"
-              : optionId === "unofficial"
-                ? "warn"
+              : optionId === "erase"
+                ? "bad"
                 : optionId
-                  ? "bad"
+                  ? "warn"
                   : "idle"
           }
         >
-          {optionId === "isolate"
-            ? "contenção em andamento"
-            : optionId === "hide"
-              ? "incidente oculto"
-              : "janela de dano aberta"}
+          {optionId === "notify"
+            ? "SBC 2.9"
+            : optionId === "erase"
+              ? "omissão de dano"
+              : "notificação pendente"}
         </StatusPill>
       </div>
     </div>
@@ -343,92 +346,65 @@ function SegurancaVisual({ optionId }: { optionId: string | null }) {
 }
 
 function ProfissionalVisual({ optionId }: { optionId: string | null }) {
-  const rows = [
-    {
-      item: "Bateria original",
-      need: "necessária",
-      price:
-        optionId === "inflate"
-          ? "R$ 980"
-          : optionId === "fake"
-            ? "R$ 490"
-            : "R$ 490",
-    },
-    {
-      item: "SSD 1 TB",
-      need:
-        optionId === "upsell"
-          ? "“preventivo”"
-          : optionId === "fake"
-            ? "forçado"
-            : "opcional",
-      price:
-        optionId === "honest" || !optionId
-          ? "—"
-          : optionId === "inflate"
-            ? "—"
-            : "R$ 720",
-    },
-    {
-      item: "Placa-mãe",
-      need: optionId === "fake" ? "laudo falso" : "sem defeito",
-      price: optionId === "fake" ? "R$ 1.350" : "—",
-    },
-  ];
-
   return (
     <div className="scene-stack">
       <div className="quote-card">
         <div className="fake-sheet-head">
-          <span>ordem de serviço #317</span>
+          <span>dossiê_estudantes.xlsx</span>
           <StatusPill
             tone={
-              optionId === "honest"
+              optionId === "authorities"
                 ? "ok"
-                : optionId === "upsell"
-                  ? "warn"
+                : optionId === "blackmail"
+                  ? "bad"
                   : optionId
-                    ? "bad"
+                    ? "warn"
                     : "idle"
             }
           >
-            {optionId === "honest"
-              ? "laudo transparente"
-              : optionId === "fake"
-                ? "diagnóstico falso"
-                : optionId === "inflate"
-                  ? "preço abusivo"
-                  : "assimetria de informação"}
+            {optionId === "authorities"
+              ? "autoridade competente"
+              : optionId === "press"
+                ? "conteúdo na imprensa"
+                : optionId === "blackmail"
+                  ? "dado como moeda"
+                  : "confidencial"}
           </StatusPill>
         </div>
         <table>
           <thead>
             <tr>
-              <th>Item</th>
-              <th>Status</th>
-              <th>Valor</th>
+              <th>Destino</th>
+              <th>SBC 1.7</th>
             </tr>
           </thead>
           <tbody>
-            {rows.map((row) => (
-              <tr key={row.item}>
-                <td>{row.item}</td>
-                <td>{row.need}</td>
-                <td>{row.price}</td>
-              </tr>
-            ))}
+            <tr>
+              <td>Comissão / autoridade</td>
+              <td>
+                {optionId === "authorities" ? "autorizado" : "não acionado"}
+              </td>
+            </tr>
+            <tr>
+              <td>Imprensa</td>
+              <td>{optionId === "press" ? "dossiê enviado" : "não"}</td>
+            </tr>
+            <tr>
+              <td>Barganha pessoal</td>
+              <td>
+                {optionId === "blackmail" ? "vaga em troca de silêncio" : "não"}
+              </td>
+            </tr>
           </tbody>
         </table>
         <p className="quote-total">
-          Total visível ao cliente:{" "}
+          Exceção do sigilo:{" "}
           <strong>
-            {optionId === "fake"
-              ? "R$ 2.560"
-              : optionId === "upsell"
-                ? "R$ 1.210"
-                : optionId === "inflate"
-                  ? "R$ 980"
-                  : "R$ 490"}
+            {optionId === "authorities"
+              ? "só às autoridades competentes"
+              : optionId === "private"
+                ? "promessa privada, violação segue"
+                : "conteúdo ainda em risco"}
           </strong>
         </p>
       </div>

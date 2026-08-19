@@ -13,9 +13,9 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Código de Conduta em TI | Decisões responsáveis",
+  title: "Ética em Computação | Código da SBC",
   description:
-    "Conheça as principais regras de conduta profissional em TI e analise casos interativos sobre sigilo, respeito, integridade e segurança.",
+    "Apresentação interativa do Código de Ética e Conduta Profissional da Sociedade Brasileira de Computação, com casos práticos baseados na Resolução 002/2024.",
 };
 
 export default function RootLayout({

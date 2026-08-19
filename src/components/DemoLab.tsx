@@ -5,9 +5,26 @@ import { CaseVisual } from "@/components/CaseVisual";
 import {
   conductCases,
   verdictCopy,
+  type CaseOption,
   type ConductCase,
   type DemoId,
 } from "@/lib/conduct-cases";
+
+const LETTERS = ["A", "B", "C", "D"] as const;
+
+function shuffleOptions(options: CaseOption[]) {
+  const copy = [...options];
+
+  for (let index = copy.length - 1; index > 0; index -= 1) {
+    const swapWith = Math.floor(Math.random() * (index + 1));
+    [copy[index], copy[swapWith]] = [copy[swapWith], copy[index]];
+  }
+
+  return copy.map((option, position) => ({
+    ...option,
+    label: LETTERS[position],
+  }));
+}
 
 function CaseSimulation({
   conductCase,
@@ -16,10 +33,9 @@ function CaseSimulation({
   conductCase: ConductCase;
   onNext: () => void;
 }) {
+  const [options] = useState(() => shuffleOptions(conductCase.options));
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const selected = conductCase.options.find(
-    (option) => option.id === selectedId,
-  );
+  const selected = options.find((option) => option.id === selectedId);
   const verdict = selected?.verdict ?? "waiting";
 
   return (
@@ -34,7 +50,7 @@ function CaseSimulation({
         <p className="case-question">{conductCase.question}</p>
 
         <div className="decision-options" role="listbox" aria-label="Respostas">
-          {conductCase.options.map((option) => (
+          {options.map((option) => (
             <button
               type="button"
               role="option"
@@ -100,8 +116,8 @@ function CaseSimulation({
           </div>
         ) : (
           <p className="stage-hint">
-            Quatro caminhos. Nem toda boa intenção é conduta correta. Escolha
-            uma alternativa para ver o efeito na simulação.
+            Quatro caminhos, em ordem aleatória. Nem toda boa intenção cumpre a
+            SBC. Escolha uma alternativa para ver o efeito.
           </p>
         )}
       </div>

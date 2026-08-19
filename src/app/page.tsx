@@ -3,56 +3,56 @@ import { DemoLab } from "@/components/DemoLab";
 const codeRoles = [
   {
     number: "01",
-    title: "Orienta decisões",
-    text: "Transforma valores como honestidade e respeito em critérios para situações reais de trabalho.",
+    title: "Princípios gerais",
+    text: "Bem público, evitar danos, honestidade, justiça, autoria, privacidade e confidencialidade — a base do código da SBC.",
   },
   {
     number: "02",
-    title: "Protege pessoas",
-    text: "Reduz riscos para clientes, colegas, organizações e para a sociedade que depende da tecnologia.",
+    title: "Responsabilidade",
+    text: "Qualidade, competência, respeito às regras, avaliação de riscos, acesso autorizado e sistemas seguros.",
   },
   {
     number: "03",
-    title: "Previne abusos",
-    text: "Define limites claros contra fraude, assédio, discriminação, vazamentos e uso indevido de recursos.",
+    title: "Liderança",
+    text: "Quem influencia o trabalho alheio deve colocar pessoas no centro e não degradar a dignidade no ambiente.",
   },
   {
     number: "04",
-    title: "Gera responsabilidade",
-    text: "Permite avaliar condutas, comunicar irregularidades e responsabilizar decisões profissionais.",
+    title: "Conformidade",
+    text: "Reconhecer violação, agir e, quando couber, reportar à Comissão de Ética da SBC. O código não é um algoritmo.",
   },
 ];
 
 const violations = [
   {
-    title: "Vazamento de dados e sigilo",
-    text: "Divulgação não autorizada de dados pessoais, senhas, documentos internos ou segredos industriais.",
-    tags: "LGPD • Confidencialidade",
+    title: "Dano omitido ou não mitigado",
+    text: "Ações bem-intencionadas também causam dano. A SBC exige mitigar, relatar riscos relevantes e não silenciar por conveniência.",
+    tags: "SBC 1.2 • SBC 2.9",
   },
   {
-    title: "Assédio e discriminação",
-    text: "Humilhação, isolamento, intimidação, conduta sexual indesejada ou tratamento desigual por características pessoais.",
-    tags: "Dignidade • Equidade",
+    title: "Desonestidade e conflito de interesse",
+    text: "Declaração falsa, dado fabricado, suborno e omissão de limitações de um sistema violam o princípio 1.3.",
+    tags: "SBC 1.3 • Transparência",
   },
   {
-    title: "Fraude e corrupção",
-    text: "Falsificação, manipulação de registros, suborno, vantagem indevida ou conflito de interesses oculto.",
-    tags: "Integridade • Transparência",
+    title: "Discriminação e assédio",
+    text: "Preconceito por origem, sexo, raça e outros fatores, além de assédio e falha de inclusão no projeto, são violação explícita.",
+    tags: "SBC 1.4 • Justiça",
   },
   {
-    title: "Uso inadequado de recursos",
-    text: "Software não autorizado, pirataria, conteúdo impróprio ou utilização abusiva de equipamentos e redes.",
-    tags: "Patrimônio • Legalidade",
+    title: "Desrespeito à autoria e às licenças",
+    text: "Não creditar, ignorar GPL/patentes ou tratar vazamento como “já estava na internet” fere o trabalho alheio.",
+    tags: "SBC 1.5 • SBC 2.8",
   },
   {
-    title: "Violações de segurança",
-    text: "Invasão, quebra de controles, compartilhamento indevido de acesso ou ocultação de incidentes.",
-    tags: "Proteção • Resposta",
+    title: "Privacidade e reidentificação",
+    text: "Coletar além do mínimo, reutilizar dado sem consentimento ou mesclar bases “anônimas” que voltam a identificar pessoas.",
+    tags: "SBC 1.6 • Minimização",
   },
   {
-    title: "Conduta antiética profissional",
-    text: "Má-fé, preço abusivo, diagnóstico falso, troca desnecessária de peças ou criação de programas ilegais.",
-    tags: "Honestidade • Boa-fé",
+    title: "Sigilo quebrado no destino errado",
+    text: "Confidencialidade cede só ante violação da lei ou do código, e mesmo então a revelação vai à autoridade competente — não à barganha nem ao vazamento amplo.",
+    tags: "SBC 1.7 • SBC 4.2",
   },
 ];
 
@@ -80,7 +80,7 @@ export default function Home() {
           <div className="hero-copy">
             <div className="tag">
               <span />
-              Código de conduta profissional em TI
+              Código de Ética e Conduta Profissional da SBC
             </div>
             <h1>
               Saber fazer.
@@ -88,9 +88,9 @@ export default function Home() {
               Saber <em>como agir.</em>
             </h1>
             <p>
-              Um código de conduta transforma valores em decisões: protege
-              pessoas e dados, orienta profissionais e define limites para o uso
-              responsável da tecnologia.
+              Este site segue a Resolução 002/2024 da Sociedade Brasileira de
+              Computação: o bem público vem primeiro, e o código é base para
+              decidir — não um algoritmo que entrega a resposta pronta.
             </p>
             <div className="hero-actions">
               <a className="primary-button" href="#codigo">
@@ -104,10 +104,10 @@ export default function Home() {
 
           <div className="hero-visual" aria-hidden="true">
             <div className="orbit orbit-one">
-              <span>RESPONSABILIDADE</span>
+              <span>BEM PÚBLICO</span>
             </div>
             <div className="orbit orbit-two">
-              <span>INTEGRIDADE</span>
+              <span>SBC 002/2024</span>
             </div>
             <div className="core">
               <span>§</span>
@@ -126,30 +126,31 @@ export default function Home() {
         </section>
 
         <section className="intro-strip">
-          <p>Conduta profissional é responsabilidade diária.</p>
+          <p>O bem público é sempre a primeira consideração.</p>
           <div aria-hidden="true">
-            <span>INTEGRIDADE</span>
+            <span>SBC</span>
             <i>✦</i>
-            <span>RESPONSABILIDADE</span>
+            <span>IFIP</span>
             <i>✦</i>
-            <span>RESPEITO</span>
+            <span>ACM</span>
           </div>
         </section>
 
         <section className="section principles-section" id="codigo">
           <div className="section-heading">
             <div>
-              <span className="section-kicker">01 — O código de conduta</span>
+              <span className="section-kicker">01 — Código da SBC</span>
               <h2>
-                Mais que regras:
+                Quatro seções.
                 <br />
-                um guia para agir.
+                Um mesmo eixo: o bem público.
               </h2>
             </div>
             <p>
-              O código de conduta reúne deveres, limites e padrões esperados de
-              quem trabalha com tecnologia. Ele orienta decisões quando a
-              resposta técnica, sozinha, não é suficiente.
+              A SBC traduz o código da IFIP/ACM para orientar profissionais,
+              estudantes e quem usa computação com impacto social. Princípios
+              diferentes podem pesar ao mesmo tempo; a consideração primordial
+              continua sendo o público.
             </p>
           </div>
 
@@ -172,14 +173,17 @@ export default function Home() {
 
         <section className="section conduct-section" id="violacoes">
           <div className="conduct-title">
-            <span className="section-kicker">02 — Principais violações</span>
+            <span className="section-kicker">
+              02 — Violações no texto da SBC
+            </span>
             <h2>
-              Quando a conduta
-              <br />é quebrada.
+              O código nomeia
+              <br />o que não se faz.
             </h2>
             <p>
-              Uma violação pode prejudicar pessoas, comprometer sistemas, gerar
-              consequências legais e destruir a confiança na profissão.
+              Declaração falsa, discriminação, reidentificação, suborno e
+              omissão de risco não são “jeitinho”: estão descritos como
+              violação.
             </p>
           </div>
           <div className="conduct-list">
@@ -200,17 +204,16 @@ export default function Home() {
         <section className="section lab-section" id="laboratorio">
           <div className="section-heading light">
             <div>
-              <span className="section-kicker">
-                03 — Código de conduta na prática
-              </span>
+              <span className="section-kicker">03 — Casos segundo a SBC</span>
               <h2>
-                Você decide.
-                <br />A consequência responde.
+                Princípios em conflito.
+                <br />A ordem das letras muda.
               </h2>
             </div>
             <p>
-              Cada caso tem quatro saídas. Algumas parecem razoáveis e ainda
-              assim violam o código. A simulação mostra o efeito da escolha.
+              Cada dilema cita artigos do código. As quatro alternativas
+              embaralham a cada vez: a conduta alinhada à SBC não fica sempre na
+              letra A.
             </p>
           </div>
           <DemoLab />
@@ -221,11 +224,10 @@ export default function Home() {
             “
           </span>
           <blockquote>
-            Competência técnica mostra o que <em>podemos</em> fazer. O código de
-            conduta orienta o que <em>devemos</em> fazer.
+            O bem público é sempre a <em>primeira</em> consideração.
           </blockquote>
-          <p>Antes de cada decisão profissional, pergunte:</p>
-          <strong>É legal, transparente, seguro e respeitoso?</strong>
+          <p>Código de Ética e Conduta Profissional da SBC</p>
+          <strong>Resolução nº 002, de 21 de março de 2024</strong>
         </section>
 
         <section className="sources-section" id="fontes">
@@ -235,30 +237,30 @@ export default function Home() {
           </div>
           <div className="source-links">
             <a
+              href="https://www.sbc.org.br/etica-sbc/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span>SBC</span>
+              Ética SBC — códigos e Comissão de Ética
+              <i aria-hidden="true">↗</i>
+            </a>
+            <a
+              href="https://www.sbc.org.br/wp-content/uploads/2026/02/Codigo-de-Etica-e-Conduta-Profissional-da-SBC_Resolucao_002-2024.pdf"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span>002/2024</span>
+              Código de Ética e Conduta Profissional da SBC
+              <i aria-hidden="true">↗</i>
+            </a>
+            <a
               href="https://www.acm.org/code-of-ethics"
               target="_blank"
               rel="noreferrer"
             >
               <span>ACM</span>
-              Código de Ética e Conduta Profissional
-              <i aria-hidden="true">↗</i>
-            </a>
-            <a
-              href="https://www.ieee.org/about/corporate/governance/p7-8.html"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <span>IEEE</span>
-              Código de Ética
-              <i aria-hidden="true">↗</i>
-            </a>
-            <a
-              href="https://www.gov.br/anpd/pt-br/assuntos/legislacao/lgpd"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <span>LGPD</span>
-              Lei Geral de Proteção de Dados
+              Código original adaptado pela IFIP e traduzido pela SBC
               <i aria-hidden="true">↗</i>
             </a>
           </div>
@@ -270,7 +272,7 @@ export default function Home() {
           <span className="brand-mark">E/</span>
           <span>Ética em TI</span>
         </a>
-        <p>Projeto educativo • Nenhum dado é coletado</p>
+        <p>Projeto educativo baseado na SBC • Nenhum dado é coletado</p>
         <a href="#inicio">Voltar ao topo ↑</a>
       </footer>
     </>
