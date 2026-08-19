@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CaseVisual } from "@/components/CaseVisual";
 import {
   conductCases,
@@ -125,6 +125,14 @@ function CaseSimulation({
   );
 }
 
+function caseIdFromHash(): DemoId | null {
+  if (typeof window === "undefined") return null;
+  const match = window.location.hash.match(/^#caso-(\w+)$/);
+  if (!match) return null;
+  const id = match[1] as DemoId;
+  return conductCases.some((conductCase) => conductCase.id === id) ? id : null;
+}
+
 export function DemoLab() {
   const [activeDemo, setActiveDemo] = useState<DemoId>("sigilo");
   const activeIndex = conductCases.findIndex(
@@ -132,9 +140,25 @@ export function DemoLab() {
   );
   const activeCase = conductCases[activeIndex];
 
+  useEffect(() => {
+    function syncFromHash() {
+      const id = caseIdFromHash();
+      if (id) setActiveDemo(id);
+    }
+
+    syncFromHash();
+    window.addEventListener("hashchange", syncFromHash);
+    return () => window.removeEventListener("hashchange", syncFromHash);
+  }, []);
+
+  function selectCase(id: DemoId) {
+    setActiveDemo(id);
+    window.history.replaceState(null, "", `#caso-${id}`);
+  }
+
   function goToNextCase() {
     const nextIndex = (activeIndex + 1) % conductCases.length;
-    setActiveDemo(conductCases[nextIndex].id);
+    selectCase(conductCases[nextIndex].id);
   }
 
   return (
@@ -148,7 +172,7 @@ export function DemoLab() {
             aria-controls="conduct-case-panel"
             key={conductCase.id}
             className={activeDemo === conductCase.id ? "active" : ""}
-            onClick={() => setActiveDemo(conductCase.id)}
+            onClick={() => selectCase(conductCase.id)}
           >
             <span>{conductCase.number}</span>
             {conductCase.shortLabel}

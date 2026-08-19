@@ -1,4 +1,11 @@
 import { DemoLab } from "@/components/DemoLab";
+import type { DemoId } from "@/lib/conduct-cases";
+
+const learningObjectives = [
+  "Identificar os sete princípios gerais e as quatro seções do código da SBC.",
+  "Reconhecer violações explicitamente nomeadas no texto oficial.",
+  "Decidir dilemas práticos quando princípios entram em conflito.",
+];
 
 const codeRoles = [
   {
@@ -23,36 +30,146 @@ const codeRoles = [
   },
 ];
 
-const violations = [
+const generalPrinciples = [
+  {
+    id: "1.1",
+    title: "Bem público",
+    text: "Considerar o bem público como preocupação primordial. Em conflito entre princípios, priorizar quem é menos favorecido.",
+  },
+  {
+    id: "1.2",
+    title: "Evitar dano",
+    text: "Minimizar danos negativos. Se o dano não for intencional, desfazê-lo ou mitigá-lo e relatar riscos relevantes.",
+  },
+  {
+    id: "1.3",
+    title: "Honestidade",
+    text: "Ser transparente sobre recursos, limitações e problemas. Declarações falsas, suborno e conflito de interesse são violação.",
+  },
+  {
+    id: "1.4",
+    title: "Justiça",
+    text: "Não discriminar por sexo, raça, origem ou outros fatores. Assédio, bullying e falha de inclusão também violam o código.",
+  },
+  {
+    id: "1.5",
+    title: "Autoria",
+    text: "Dar crédito ao trabalho alheio e respeitar licenças, patentes e contratos. Não reivindicar como próprio o que é compartilhado.",
+  },
+  {
+    id: "1.6",
+    title: "Privacidade",
+    text: "Coletar só o necessário, com finalidade legítima. Não reidentificar dados anônimos nem reutilizar sem consentimento.",
+  },
+  {
+    id: "1.7",
+    title: "Confidencialidade",
+    text: "Preservar sigilo, salvo violação da lei ou do código — e, nesses casos, revelar só à autoridade competente.",
+  },
+];
+
+const checklistItems = [
+  {
+    question: "O bem público está em primeiro lugar?",
+    detail:
+      "Se princípios colidem, a SBC manda priorizar quem é menos favorecido e o impacto social da decisão.",
+  },
+  {
+    question: "Estou sendo transparente sobre limitações e riscos?",
+    detail:
+      "Omitir falhas de um sistema, métricas infladas ou conflito de interesse viola o princípio da honestidade (1.3).",
+  },
+  {
+    question: "Há dano evitável ou não mitigado?",
+    detail:
+      "Boa intenção não basta: dano não intencional deve ser corrigido, mitigado e comunicado (1.2 e 2.9).",
+  },
+  {
+    question: "Respeito autoria, privacidade e confidencialidade?",
+    detail:
+      "Licenças, minimização de dados e destino correto de informações sigilosas não são detalhes técnicos — são deveres éticos.",
+  },
+  {
+    question: "Se há violação, vou agir pelos canais corretos?",
+    detail:
+      "Reconhecer a violação e reportar à Comissão de Ética da SBC, quando couber, faz parte da conformidade (seção 4).",
+  },
+];
+
+const violations: {
+  title: string;
+  text: string;
+  tags: string;
+  caseId: DemoId;
+}[] = [
   {
     title: "Dano omitido ou não mitigado",
     text: "Ações bem-intencionadas também causam dano. A SBC exige mitigar, relatar riscos relevantes e não silenciar por conveniência.",
     tags: "SBC 1.2 • SBC 2.9",
+    caseId: "seguranca",
   },
   {
     title: "Desonestidade e conflito de interesse",
     text: "Declaração falsa, dado fabricado, suborno e omissão de limitações de um sistema violam o princípio 1.3.",
     tags: "SBC 1.3 • Transparência",
+    caseId: "fraude",
   },
   {
     title: "Discriminação e assédio",
     text: "Preconceito por origem, sexo, raça e outros fatores, além de assédio e falha de inclusão no projeto, são violação explícita.",
     tags: "SBC 1.4 • Justiça",
+    caseId: "assedio",
   },
   {
     title: "Desrespeito à autoria e às licenças",
     text: "Não creditar, ignorar GPL/patentes ou tratar vazamento como “já estava na internet” fere o trabalho alheio.",
     tags: "SBC 1.5 • SBC 2.8",
+    caseId: "recursos",
   },
   {
     title: "Privacidade e reidentificação",
     text: "Coletar além do mínimo, reutilizar dado sem consentimento ou mesclar bases “anônimas” que voltam a identificar pessoas.",
     tags: "SBC 1.6 • Minimização",
+    caseId: "sigilo",
   },
   {
     title: "Sigilo quebrado no destino errado",
     text: "Confidencialidade cede só ante violação da lei ou do código, e mesmo então a revelação vai à autoridade competente — não à barganha nem ao vazamento amplo.",
     tags: "SBC 1.7 • SBC 4.2",
+    caseId: "profissional",
+  },
+];
+
+const glossaryTerms = [
+  {
+    term: "Bem público",
+    definition:
+      "Impacto da computação sobre a sociedade como um todo. A SBC trata como a consideração primordial em qualquer decisão ética.",
+  },
+  {
+    term: "Reidentificação",
+    definition:
+      "Recuperar a identidade de alguém a partir de dados aparentemente anônimos — por exemplo, cruzando CEP, data de nascimento e data de consulta.",
+  },
+  {
+    term: "Conflito de interesse",
+    definition:
+      "Situação em que interesse pessoal ou comercial pode distorcer um julgamento profissional. Deve ser declarado, não ocultado.",
+  },
+  {
+    term: "Minimização de dados",
+    definition:
+      "Coletar e usar apenas o estritamente necessário para a finalidade declarada — princípio central do 1.6 e alinhado à LGPD.",
+  },
+  {
+    term: "Zona cinzenta",
+    definition:
+      "Escolha com boa intenção que ainda descumpre parte do código. No laboratório, aparece como alternativa parcialmente aceitável, mas arriscada.",
+  },
+  {
+    term: "Comissão de Ética da SBC",
+    definition:
+      "Instância para reporte de violações do código por associados. Parte da seção 4 — Conformidade com o código.",
   },
 ];
 
@@ -66,6 +183,7 @@ export default function Home() {
         </a>
         <nav aria-label="Navegação principal">
           <a href="#codigo">O código</a>
+          <a href="#checklist">Checklist</a>
           <a href="#violacoes">Violações</a>
           <a href="#laboratorio">Casos práticos</a>
         </nav>
@@ -92,6 +210,11 @@ export default function Home() {
               Computação: o bem público vem primeiro, e o código é base para
               decidir — não um algoritmo que entrega a resposta pronta.
             </p>
+            <ul className="hero-objectives" aria-label="Objetivos de aprendizagem">
+              {learningObjectives.map((objective) => (
+                <li key={objective}>{objective}</li>
+              ))}
+            </ul>
             <div className="hero-actions">
               <a className="primary-button" href="#codigo">
                 Entender o código <span aria-hidden="true">→</span>
@@ -169,6 +292,53 @@ export default function Home() {
               </article>
             ))}
           </div>
+
+          <div className="general-principles-block">
+            <div className="general-principles-heading">
+              <span className="section-kicker">Seção 1 — Os sete princípios gerais</span>
+              <h3>Cada artigo orienta uma dimensão da conduta.</h3>
+              <p>
+                Os casos práticos deste site citam estes princípios. Eles não
+                funcionam isolados: em dilemas reais, mais de um entra em jogo ao
+                mesmo tempo.
+              </p>
+            </div>
+            <div className="general-principles-grid">
+              {generalPrinciples.map((principle) => (
+                <article key={principle.id} className="general-principle-card">
+                  <span>{principle.id}</span>
+                  <h4>{principle.title}</h4>
+                  <p>{principle.text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section checklist-section" id="checklist">
+          <div className="section-heading">
+            <div>
+              <span className="section-kicker">Antes de decidir</span>
+              <h2>
+                Cinco perguntas
+                <br />
+                para usar na prática.
+              </h2>
+            </div>
+            <p>
+              O código da SBC não entrega uma resposta automática. Este checklist
+              resume o que vale revisar quando princípios entram em conflito ou
+              quando a pressão do prazo pesa.
+            </p>
+          </div>
+          <ol className="checklist-grid">
+            {checklistItems.map((item) => (
+              <li key={item.question}>
+                <strong>{item.question}</strong>
+                <p>{item.detail}</p>
+              </li>
+            ))}
+          </ol>
         </section>
 
         <section className="section conduct-section" id="violacoes">
@@ -183,7 +353,7 @@ export default function Home() {
             <p>
               Declaração falsa, discriminação, reidentificação, suborno e
               omissão de risco não são “jeitinho”: estão descritos como
-              violação.
+              violação. Cada item abaixo leva a um caso no laboratório.
             </p>
           </div>
           <div className="conduct-list">
@@ -195,7 +365,12 @@ export default function Home() {
                   <p>{violation.text}</p>
                   <small>{violation.tags}</small>
                 </div>
-                <i aria-hidden="true">↗</i>
+                <a
+                  className="violation-case-link"
+                  href={`#caso-${violation.caseId}`}
+                >
+                  Ver caso <span aria-hidden="true">→</span>
+                </a>
               </article>
             ))}
           </div>
@@ -228,6 +403,31 @@ export default function Home() {
           </blockquote>
           <p>Código de Ética e Conduta Profissional da SBC</p>
           <strong>Resolução nº 002, de 21 de março de 2024</strong>
+        </section>
+
+        <section className="section glossary-section" id="glossario">
+          <div className="section-heading">
+            <div>
+              <span className="section-kicker">Termos-chave</span>
+              <h2>
+                Glossário
+                <br />
+                para consulta rápida.
+              </h2>
+            </div>
+            <p>
+              Conceitos que aparecem no código, nos casos e na LGPD. Use como
+              apoio durante a leitura ou a apresentação.
+            </p>
+          </div>
+          <dl className="glossary-grid">
+            {glossaryTerms.map((entry) => (
+              <div key={entry.term}>
+                <dt>{entry.term}</dt>
+                <dd>{entry.definition}</dd>
+              </div>
+            ))}
+          </dl>
         </section>
 
         <section className="sources-section" id="fontes">
